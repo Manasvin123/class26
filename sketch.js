@@ -25,7 +25,7 @@ function setup(){
     box2 = new Box(920,320,70,70);
     pig1 = new Pig(810, 350);
     log1 = new Log(810,260,300, PI/2);
-    log8 = new Log(811, 260, 300, PI/2);
+   // log8 = new Log(811, 260, 300, PI/2);
 
     box3 = new Box(700,240,70,70);
     box4 = new Box(920,240,70,70);
@@ -36,9 +36,9 @@ function setup(){
     box5 = new Box(810,160,70,70);
     log4 = new Log(760,120,150, PI/7);
     log5 = new Log(870,120,150, -PI/7);
-    bird = new Bird(100,100);
-    constrainedLog= new Log(200,380,150,PI/2);
-chain=new slingshot(bird.body, {x:200, y:200})
+    bird = new Bird(100,50);
+  //  constrainedLog= new Log(200,380,150,PI/2);
+chain=new slingshot(bird.body, {x:200, y:50})
 
 
   
@@ -56,7 +56,7 @@ function draw(){
     ground.display();
     pig1.display();
     log1.display();
-log8.display();
+//og8.display();
 
     box3.display();
     box4.display();
@@ -70,7 +70,7 @@ log8.display();
     bird.display();
     platform.display();
 
-    constrainedLog.display();
+   // constrainedLog.display();
     
     chain.display();
     
