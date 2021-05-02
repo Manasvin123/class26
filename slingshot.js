@@ -11,7 +11,7 @@ constructor(bodyA,pointB){
     var options={
        bodyA:bodyA,
        pointB: pointB,
-       stiffness:0.004,
+       stiffness:0.04,
        length:30,
      }
     this.body= Matter.Constraint.create(options)
@@ -25,9 +25,15 @@ this.sling3=loadImage("sprites/sling3.png")
 }
 fly(){
 this.body.bodyA=null
+}
+attach(body){
+this.body.bodyA=body
 
 
 }
+
+
+
 display(){
      //line(x1,y1,x2,y2)
  // line(bird.body.position.x, bird.body.position.y, constrainedLog.body.position.x, constrainedLog.body.position.y)
@@ -42,14 +48,14 @@ if(this.body.bodyA){
         stroke("#301608")
         strokeWeight(5);
         line(pointA.x-20,pointA.y, pointB.x-10,pointB.y)
-        line(pointA.x-20,pointA.y, pointB.x+20,pointB.y)
+        line(pointA.x-20,pointA.y, pointB.x+30,pointB.y-3)
     image(this.sling3, pointA.x-30, pointA.y-10,20, 30)
     }
 else{
     stroke("#301608")
     strokeWeight(3);
     line(pointA.x-20,pointA.y, pointB.x-10,pointB.y)
-    line(pointA.x-20,pointA.y, pointB.x+20,pointB.y)
+    line(pointA.x-20,pointA.y, pointB.x+30,pointB.y-3)
 image(this.sling3, pointA.x-30, pointA.y-10,20, 30)
 }
 pop();

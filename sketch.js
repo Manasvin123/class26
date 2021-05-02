@@ -7,6 +7,7 @@ var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
 var chain;
+var gamestate="onsling"
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -76,10 +77,21 @@ function draw(){
     
 }
 function mouseDragged(){
-Matter.Body.setPosition(bird.body,{x:mouseX, y:mouseY})
+if(gamestate!=="launch"){
+
+
+    Matter.Body.setPosition(bird.body,{x:mouseX, y:mouseY})}
 }
 function mouseReleased(){
 chain.fly();
-
-
+gamestate="launch"
+}
+function keyPressed(){
+if(keyCode===32&&gamestate=="launch"){
+chain.attach(bird.body)
+gamestate="onsling"
+bird.trajectory=[]
+bird.body.position.x=100
+bird.body.position.y=50
+}
 }
