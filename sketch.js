@@ -8,11 +8,38 @@ var box1, pig1;
 var backgroundImg,platform;
 var chain;
 var gamestate="onsling"
+var response, responsetype
+var datetime
+var hour
+var score=0
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
 }
+async function backgroundchange(){
+response=await fetch("http://worldtimeapi.org/api/timezone/America/Chicago")
+responsetype=await response.json()
+console.log (responsetype)
+datetime=responsetype.datetime
+console.log (datetime)
+hour=datetime.slice(11,13)
+console.log (hour)
+if(hour>=06&&hour<=15){
+bg="sprites/bg.png"
 
+
+
+}
+else{
+bg="sprites/nighttime.jpg"
+
+
+
+}
+
+backgroundImg=loadImage(bg)
+
+}
 function setup(){
     var canvas = createCanvas(1200,400);
     engine = Engine.create();
@@ -40,18 +67,18 @@ function setup(){
     bird = new Bird(100,50);
   //  constrainedLog= new Log(200,380,150,PI/2);
 chain=new slingshot(bird.body, {x:200, y:50})
-
+backgroundchange()
 
   
 
 }
 
 function draw(){
-    background(backgroundImg);
+    if(backgroundImg){background(backgroundImg)}
     Engine.update(engine);
-    console.log(box2.body.position.x);
-    console.log(box2.body.position.y);
-    console.log(box2.body.angle);
+    //console.log(box2.body.position.x);
+    //console.log(box2.body.position.y);
+    //console.log(box2.body.angle);
     box1.display();
     box2.display();
     ground.display();
@@ -70,6 +97,15 @@ function draw(){
 
     bird.display();
     platform.display();
+pig1.score();
+pig3.score();
+
+
+textSize(20)
+fill ("white")
+text("Score:"+score, 50, 50)
+
+
 
    // constrainedLog.display();
     
