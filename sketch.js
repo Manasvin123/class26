@@ -12,8 +12,17 @@ var response, responsetype
 var datetime
 var hour
 var score=0
+var birds=[]
+var reset
+var bflysound, bselectsound
+
+
 
 function preload() {
+bflysound=loadSound("sprites/bird_flying.mp3")
+bselectsound=loadSound("sprites/bird_select.mp3")
+
+
     backgroundImg = loadImage("sprites/bg.png");
 }
 async function backgroundchange(){
@@ -26,7 +35,6 @@ hour=datetime.slice(11,13)
 console.log (hour)
 if(hour>=06&&hour<=15){
 bg="sprites/bg.png"
-
 
 
 }
@@ -65,11 +73,16 @@ function setup(){
     log4 = new Log(760,120,150, PI/7);
     log5 = new Log(870,120,150, -PI/7);
     bird = new Bird(100,50);
+    bird2= new Bird(90, 150);
+    bird3=new Bird(150, 150)
+    birds.push(bird3)
+    birds.push(bird2)
+    birds.push(bird)
   //  constrainedLog= new Log(200,380,150,PI/2);
-chain=new slingshot(bird.body, {x:200, y:50})
+chain=new slingshot(birds[birds.length-1].body, {x:200, y:50})
 backgroundchange()
-
-  
+Reset=createImg("sprites/refresh.png")
+Reset.position(50, 50)
 
 }
 
@@ -95,7 +108,12 @@ function draw(){
     log4.display();
     log5.display();
 
+    bird.displaybird1();
+    bird2.displaybird2();
+    bird3.displaybird3();
     bird.display();
+    bird2.display();
+    bird3.display();
     platform.display();
 pig1.score();
 pig3.score();
@@ -104,7 +122,7 @@ pig3.score();
 textSize(20)
 fill ("white")
 text("Score:"+score, 50, 50)
-
+Reset.mousePressed(reset)
 
 
    // constrainedLog.display();
@@ -116,18 +134,30 @@ function mouseDragged(){
 if(gamestate!=="launch"){
 
 
-    Matter.Body.setPosition(bird.body,{x:mouseX, y:mouseY})}
+    Matter.Body.setPosition(birds[birds.length-1].body,{x:mouseX, y:mouseY})}
 }
 function mouseReleased(){
 chain.fly();
+bflysound.play()
+birds.pop()
 gamestate="launch"
 }
 function keyPressed(){
-if(keyCode===32&&gamestate=="launch"){
-chain.attach(bird.body)
+if(keyCode===32&&gamestate==="launch"){
+chain.attach(birds[birds.length-1].body)
+bselectsound.play();
 gamestate="onsling"
-bird.trajectory=[]
-bird.body.position.x=100
-bird.body.position.y=50
+//bird.trajectory=[]
+//bird.body.position.x=100
+//bird.body.position.y=50
 }
+}
+function reset(){
+location.reload()
+
+
+
+
+
+
 }
